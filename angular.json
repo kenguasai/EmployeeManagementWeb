@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/employee-management-web",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,7 +23,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "src/assets/bootstrap/css/bootstrap.css"
             ],
             "scripts": []
           },
@@ -64,7 +66,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "EmployeeManagementWeb:build:production"
+              "browserTarget": "EmployeeManagementWeb:build:production",
+              "proxyConfig": "src/proxy.config.json"
             },
             "development": {
               "browserTarget": "EmployeeManagementWeb:build:development"
@@ -94,6 +97,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

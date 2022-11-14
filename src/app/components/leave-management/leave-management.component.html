@@ -1,0 +1,58 @@
+<div class="toolbar" role="banner">
+    <div class="row">
+        <div class="col-md-2">
+            <img _ngcontent-ruw-c90="" alt="Mintree Logo" src="/assets/images/mindtree-logo.png" style="width: 70%;">
+        </div>
+        <div class="col-md-8 pt-1rem">
+            <span routerLink="/employeeDetails">Employee Details</span>
+            <span routerLink="/employeeDesignations">Employee Designation Details</span>
+            <span routerLink="/leaveManagement">Leave Request Management</span>
+        </div>
+        <div class="col-md-2 pt-1rem">
+            <span routerLink="/login" style="float: right;">
+                <mat-icon fontIcon="logout" style="line-height: 0.7; font-size: 20px; height: auto;"></mat-icon> Logout
+            </span>
+        </div>
+    </div>
+</div>
+<mat-card style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Leave Details</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2">
+                    <button mat-raised-button color="primary" style="width: 100%; padding: 0.5rem" (click)="applyLeave()">Apply Leave</button>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-6" style="float: right;">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Start typing to filter" #input>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
+                        <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+
+                <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+    </div>
+</mat-card>
