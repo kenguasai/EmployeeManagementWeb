@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>Add Employee</h1>
+<form [formGroup]="employeeForm">
+    <div mat-dialog-content>
+        <p>Enter the Employee Details</p>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Employee Id</mat-label>
+                    <input type="text" matInput formControlName="employeeId" required>
+                    <mat-error *ngIf="employeeForm.get('employeeId')?.hasError('required')">Employee Id is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('employeeId')?.hasError('maxlength')">Employee Id should be less than 50 chars</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Employee Name</mat-label>
+                    <input type="text" matInput formControlName="employeeName" required>
+                    <mat-error *ngIf="employeeForm.get('employeeName')?.hasError('required')">Employee Name is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('employeeName')?.hasError('maxlength')">Employee Name should be less than 60 chars</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Phone Number</mat-label>
+                    <input type="number" matInput formControlName="phoneNumber" required>
+                    <mat-error *ngIf="employeeForm.get('phoneNumber')?.hasError('required')">Phone Number is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('phoneNumber')?.hasError('pattern')">Phone Number should be valid</mat-error>
+                    <mat-error></mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Email Id</mat-label>
+                    <input type="text" matInput formControlName="emailId" required>
+                    <mat-error *ngIf="employeeForm.get('emailId')?.hasError('required')">Email Id is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('emailId')?.hasError('pattern')">Email Id should be valid</mat-error>
+                    <mat-error *ngIf="employeeForm.get('emailId')?.hasError('maxlength')">Email Id should be less than 30 chars</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Address</mat-label>
+                    <input type="text" matInput formControlName="address" required>
+                    <mat-error *ngIf="employeeForm.get('address')?.hasError('required')">Address is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('address')?.hasError('maxlength')">Address should be less than 60 chars</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Salary</mat-label>
+                    <input type="number" matInput formControlName="salary" required>
+                    <mat-error *ngIf="employeeForm.get('salary')?.hasError('required')">Salary is mandatory</mat-error>
+                    <mat-error *ngIf="employeeForm.get('salary')?.hasError('pattern')">Salary should be numeric</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+<div mat-dialog-actions>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!employeeForm.valid || !employeeForm.dirty" (click)="saveEmployee()">Add</button>
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</div>

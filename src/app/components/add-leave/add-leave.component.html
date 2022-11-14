@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Apply Leave</h1>
+<form [formGroup]="leaveForm">
+    <div mat-dialog-content>
+        <p>Enter the Leave Details</p>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Employee Id</mat-label>
+                    <input type="text" matInput formControlName="employeeId" required>
+                    <mat-error *ngIf="leaveForm.get('employeeId')?.hasError('required')">Employee Id is mandatory
+                    </mat-error>
+                    <mat-error *ngIf="leaveForm.get('employeeId')?.hasError('maxlength')">Employee Id should be less
+                        than 50 chars</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Leave Type</mat-label>
+                    <mat-select formControlName="leaveType" required>
+                        <mat-option *ngFor="let leave of leaveType" [value]="leave.id">
+                            {{leave.value}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="leaveForm.get('leaveType')?.hasError('required')">Leave Type is mandatory
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Number of Days</mat-label>
+                    <input type="number" matInput formControlName="noOfDays" required>
+                    <mat-error *ngIf="leaveForm.get('noOfDays')?.hasError('required')">Number of Days is mandatory
+                    </mat-error>
+                    <mat-error *ngIf="leaveForm.get('noOfDays')?.hasError('pattern')">Number of Days should be numeric
+                        and less than 100</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>From Date</mat-label>
+                    <input matInput formControlName="fromDate" [matDatepicker]="picker1">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="leaveForm.get('fromDate')?.hasError('required')">From Date is mandatory
+                    </mat-error>
+                    <mat-error></mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>To Date</mat-label>
+                    <input matInput formControlName="toDate" [matDatepicker]="picker2">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error *ngIf="leaveForm.get('toDate')?.hasError('required')">To Date is mandatory</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Salary</mat-label>
+                    <textarea matInput formControlName="reason" required #reason></textarea>
+                    <mat-hint align="end">{{reason.value.length}} / 150</mat-hint>
+                    <mat-error *ngIf="leaveForm.get('reason')?.hasError('required')">Reason is mandatory</mat-error>
+                    <mat-error *ngIf="leaveForm.get('reason')?.hasError('maxlength')">Reason should be less than 150
+                        chars</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+<div mat-dialog-actions>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!leaveForm.valid || !leaveForm.dirty"
+        (click)="applyLeave()">Apply</button>
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</div>
